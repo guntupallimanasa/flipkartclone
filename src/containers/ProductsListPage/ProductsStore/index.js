@@ -1,9 +1,10 @@
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductsBySlug } from '../../../actions';
 import './style.css';
 import { generalPublicUrl } from '../../../urlConfig';
-
+import { Link } from 'react-router-dom';
+import { Card } from '../../../../src/components/UI/Card'
 /**
 * @author
 * @function ProductsStore
@@ -29,15 +30,21 @@ export const ProductsStore = (props) => {
         <div>
             {
                 Object.keys(product.productsByPrice).map((key, index) => {
-                    return (<div className='card'>
-                        <div className='cardHeader'>
-                            <div>{props.match.params.slug} under {priceRange[key]}</div>
-                            <button>View All</button>
-                        </div>
+                    return (<Card
+                        headerLeft={`${props.match.params.slug} mobile under ${priceRange[key]}`}
+                        headerRight={<button>View All</button>}
+                        style = {{
+                            margin: '20px',
+                            width: 'calc(100%-40px)'
+                        }}
+                    >
                         <div style={{ display: "flex" }}>
                             {
                                 product.productsByPrice[key].map(product =>
-                                    <div className='productContainer'>
+                                    <Link
+                                        to={`/${product.slug}/${product._id}/p`}
+                                        style={{ display: 'block' }}
+                                        className='productContainer'>
                                         <div className='productImgContainer'>
                                             <img src={generalPublicUrl(product.productPictures[0].img)} alt="" />
                                         </div>
@@ -49,10 +56,10 @@ export const ProductsStore = (props) => {
                                             </div>
                                             <div className='productPrice'>{product.price}</div>
                                         </div>
-                                    </div>)
+                                    </Link>)
                             }
                         </div>
-                    </div>)
+                    </Card>)
                 })
             }
         </div>
