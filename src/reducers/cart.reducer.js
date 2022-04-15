@@ -9,7 +9,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    console.log('actions::::;', action)
     switch (action.type) {
         case cartConstants.ADD_TO_CART_REQUEST:
             return state = {
@@ -31,14 +30,12 @@ export default (state = initialState, action) => {
         case cartConstants.REMOVE_CART_ITEM_REQUEST:
             return state = {
                 ...state,
-                updatingCart: false,
-                error: action.payload.error
+                updatingCart: true,
             }
         case cartConstants.REMOVE_CART_ITEM_SUCCESS:
             return state = {
                 ...state,
                 updatingCart: false,
-                error: action.payload.error
             }
         case cartConstants.REMOVE_CART_ITEM_FAILURE:
             return state = {

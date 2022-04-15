@@ -16,7 +16,6 @@ const initialState = {
 }
 
 export default (state =initialState, action )=>{
-    console.log('actions::::;',action)
     switch(action.type){
         case authConstants.LOGIN_REQUEST:
              return state = {
@@ -46,6 +45,25 @@ export default (state =initialState, action )=>{
             return state = {
                 ...state,
                 loading: true,
+                error: action.payload.error
+            }
+        }
+        case authConstants.SIGNUP_REQUEST:{
+            return state = {
+                ...state,
+                loading: true
+            }
+        }
+        case authConstants.SIGNUP_SUCCESS:{
+            return state = {
+                ...state,
+                loading: false
+            }
+        }
+        case authConstants.SIGNUP_FAILURE:{
+            return state = {
+                ...state,
+                loading: false,
                 error: action.payload.error
             }
         }

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Layout } from '../../components/Layout'
 import getParams from '../../utils/getParams'
 import { ProductPage } from './ProductPage'
-import { ProductsStore } from './ProductsStore'
+import {ProductStore} from './ProductsStore'
+import { ClothingAndAccessories } from './ClothingAndAccessories'
 /**
 * @author
 * @function ProductsListPage
@@ -15,12 +16,13 @@ export const ProductsListPage = (props) => {
 
         switch (params.type) {
             case 'store':
-                content = <ProductsStore {...props} />
+                content = <ProductStore {...props} />
                 break;
             case 'page':
                 content = <ProductPage {...props} />
                 break;
-            default: content=null
+            default:content = <ClothingAndAccessories {...props} />;
+
         }
         return content;
     }

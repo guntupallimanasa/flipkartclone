@@ -5,7 +5,6 @@ export const getProductsBySlug = (slug) => {
     return async (dispatch) => {
 
         const res = await axios.get(`/products/${slug}`)
-        console.log(">>>res", res)
         if (res.status === 200) {
             dispatch({
                 type: productConstants.GET_PRODUCTS_BY_SLUG,
@@ -30,7 +29,6 @@ export const getProductsByPage = (payload) => {
         const { cid, type } = payload;
 
         const res = await axios.get(`/page/${cid}/${type}`)
-        console.log('>>>>>>>>>>>>>>>>>', res)
         dispatch({
             type: productConstants.GET_PRODUCT_PAGE_REQUEST
         })

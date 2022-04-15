@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isUserLogin, updateCart } from './actions';
 import { ProductDetailsPage } from './containers/productDetailsPage';
 import { CartPage } from './containers/CartPage';
+import {CheckoutPage} from './containers/CheckoutPage';
+import {OrderPage} from './containers/OrderPage';
+import {OrderDetailsPage} from './containers/OrderDetailsPage';
 //visual studio  theme:::cobalt next
 function App() {
 
@@ -30,6 +33,9 @@ function App() {
       <Switch>
       <Route path='/' exact component={HomePage} />
         <Route path='/cart' component={CartPage} />
+        <Route path='/checkout' component={CheckoutPage} />
+        <Route path="/account/orders" component={OrderPage} />
+        <Route path="/order_details/:orderId" component={OrderDetailsPage} />
         <Route path='/:productSlug/:ProductId/p' component={ProductDetailsPage} />
         <Route path='/:slug' component={ProductsListPage} />
       </Switch>

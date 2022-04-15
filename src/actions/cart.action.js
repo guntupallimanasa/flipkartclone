@@ -9,7 +9,6 @@ export const getCartItems = () => {
       const res = await axios.post(`/cart/getCartItems`);
       if (res.status === 200) {
         const { cartItems } = res.data;
-        console.log({ getCartItems: cartItems });
         if (cartItems) {
           dispatch({
             type: cartConstants.ADD_TO_CART_SUCCESS,
@@ -30,7 +29,6 @@ export const addToCart = (product, newQty = 1) => {
       cartReducer: { cartItems },
       authReducer,
     } = store.getState();
-    console.log('#####action::products', product);
     //const product = action.payload.product;
     //const products = state.products;
     const qty = cartItems[product._id]
@@ -58,17 +56,13 @@ export const addToCart = (product, newQty = 1) => {
           },
         ],
       };
-      console.log(payload);
       const res = await axios.post(`/cart/addtocart`, payload);
-      console.log(res);
       if (res.status === 201) {
         dispatch(getCartItems());
       }
     } else {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     }
-
-    // console.log("addToCart::", cartItems);
 
     dispatch({
       type: cartConstants.ADD_TO_CART_SUCCESS,
@@ -81,9 +75,12 @@ export const removeCartItem = (payload) => {
   return async (dispatch) => {
     try {
       dispatch({ type: cartConstants.REMOVE_CART_ITEM_REQUEST });
-      const res = await axios.post(`/cart/removeItem`, { payload });
+      const res = await axios.post(`/cart/removeCartItems`, { payload });
       if (res.status === 202) {
-        dispatch({ type: cartConstants.REMOVE_CART_ITEM_SUCCESS });
+        dispatch({ 
+          type: cartConstants.REMOVE_CART_ITEM_SUCCESS,
+          payload
+         });
         dispatch(getCartItems());
       } else {
         const { error } = res.data;
@@ -104,8 +101,6 @@ export const updateCart = () => {
     let cartItems = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : null;
-
-    console.log("upppppppppp");
 
     if (authReducer.authenticate) {
       localStorage.removeItem("cart");
